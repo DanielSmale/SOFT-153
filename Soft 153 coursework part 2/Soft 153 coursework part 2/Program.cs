@@ -186,18 +186,7 @@ class Program
                 nodeToAdd.firstName[i] = InputData;
             }
 
-            
-            if (InputData == ',' || InputData == ' ') // reading in id
-            {
-                dataIn.Read(); // to skip the space in the file
-                break;
 
-            }
-            else
-            {
-                Array.Resize(ref nodeToAdd.lastName, i + 1);
-                nodeToAdd.id = InputData;
-            }
             i++;
 
         }
@@ -238,12 +227,14 @@ class Program
         List list = new List();
         char[] idCharacters = new char[3];
         int i = 0;
+
+
         while (!dataIn.EndOfStream)
         {
             char input = Convert.ToChar(dataIn.Read());
 
 
-            if (input == ',' || input == ' ') //reading in last name
+            if (input == ',' || input == ' ') //reading in id
             {
                 dataIn.Read(); // to skip the space in the file
                 break;
@@ -251,12 +242,21 @@ class Program
             }
             else
             {
-                Array.Resize(ref nodeToAdd.lastName, i + 1);
-                idCharacters[i] = input;
-                nodeToAdd.id = idCharacters[i] * 10;
+                Array.Resize(ref idCharacters, i + 1);
+                idCharacters[i] = input;  //**** currently reads too far into the line might need to break if input is carrage return or null??? not sure yet
+
             }
-            
+
+
+        
+
+
             i++;
+        }
+
+        for (int j = 0; j < 3; j++)  // loop through and add to our nodes id variable
+        {
+            nodeToAdd.id = idCharacters[j] * j + 1;
         }
 
     }
