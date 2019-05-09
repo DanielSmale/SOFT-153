@@ -1,0 +1,7 @@
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\obj\Debug\Soft 153 coursework part 2.csprojAssemblyReference.cache
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\obj\Debug\Soft 153 coursework part 2.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\bin\Debug\Soft 153 coursework part 2.exe.config
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\bin\Debug\Soft 153 coursework part 2.exe
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\bin\Debug\Soft 153 coursework part 2.pdb
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\obj\Debug\Soft 153 coursework part 2.exe
+C:\Users\Student\Documents\Uni work\SOFT153-Maths and algorithms\Soft 153 coursework part 2\Soft 153 coursework part 2\obj\Debug\Soft 153 coursework part 2.pdb
