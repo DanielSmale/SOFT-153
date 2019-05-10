@@ -12,7 +12,6 @@ class Node
 class List
 {
     public Node listHead;
-    // public Node lastNode??????????????????????? do i need him. is he loved
 }
 
 class Program
@@ -235,9 +234,7 @@ class Program
             nodeI = nodeI.next;
         }
     }
-
-
-
+       
     static void Main()
     { // do some testing 
 

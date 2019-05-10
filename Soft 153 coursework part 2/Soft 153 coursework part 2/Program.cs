@@ -81,23 +81,6 @@ class Program
         node.next = node.next.next;
     }
 
-    static bool FindNode(List list, Node nodeToFind)
-    {
-        Node traversalNode = list.listHead;
-        bool nodeFound = false;
-
-        for (int i = 0; i < Length(list); i++)
-        {
-            if (nodeToFind == traversalNode)
-            {
-                nodeFound = true;
-                return nodeFound;
-            }
-            traversalNode = traversalNode.next;
-        }
-        return nodeFound;
-    }
-
     static void RemoveNode(List list, Node nodeToRemove)
     {
         Node traversalNode = list.listHead;
@@ -151,44 +134,93 @@ class Program
         return traversalNode;
     }
 
+    static void SwapNodes(List list, Node nodeA, Node nodeB)
+    {
+        if (nodeA == null || nodeB == null)
+        {
+            Console.WriteLine("One of the nodes was null");
+        }
+
+
+        if (nodeA.prev == null)
+        {
+            list.listHead = nodeB;
+        }
+        else
+        {
+            nodeA.prev.next = nodeB;
+
+        }
+
+        if (nodeB.next != null)
+        {
+            nodeB.next.prev = nodeA;
+        }
+
+        nodeA.next = nodeB.next;
+        nodeB.next = nodeA;
+
+        nodeB.prev = nodeA.prev;
+        nodeA.prev = nodeB;
+
+    }
+
+    static void InsertionSort(List listToSort)
+    {
+        Node nodeI = listToSort.listHead;
+        Node nodeJ = nodeI;
+        while (nodeI != null)
+        {
+
+            nodeJ = nodeI.prev;
+
+            while (nodeJ != null)
+            {
+
+                if (nodeJ.id > nodeI.id) // otherwise do this
+                {
+                    SwapNodes(listToSort, nodeJ, nodeI);
+                }
+                nodeJ = nodeJ.prev;
+
+            }
+            nodeI = nodeI.next;
+        }
+    }
 
     static List ReadInData()
     {
         StreamReader dataIn = new StreamReader("records.txt");
         List list = new List();
-        Node nodeToAdd = new Node();
         char[] firstName = new char[1];
         char[] lastName = new char[1];
-        char[] idCharacters = new char[4];
+        char[] idCharacters = new char[1];
 
+        Node nodeToAdd;
 
-
-        //Read each value into a character array. Read the id as a char[] and convert to int times digits by 10, 100 , 1000 etc based on poistion
+        //Read each line into a character array. Read the id as a char[] and convert to int times digits by 10, 100 , 1000 etc based on poistion
         int i = 0;
 
         while (!dataIn.EndOfStream)
         {
             char InputData = Convert.ToChar(dataIn.Read());
-
+            nodeToAdd = new Node();
 
             if (InputData == ',' || InputData == ' ') // reading in first name
             {
                 dataIn.Read(); // to skip the spaces in the file
-                ReadInLastName(dataIn, nodeToAdd);
-                ReadInId(dataIn, nodeToAdd);
+                nodeToAdd.lastName = ReadInLastName(dataIn, lastName);
+                nodeToAdd.id = ReadInId(dataIn, idCharacters);
                 break;
             }
             else
             {
                 Array.Resize(ref nodeToAdd.firstName, i + 1);
-
-
                 nodeToAdd.firstName[i] = InputData;
             }
 
 
             i++;
-
             InsertBeginning(list, nodeToAdd);
         }
 
@@ -196,7 +228,8 @@ class Program
 
         return list;
     }
-    static void ReadInLastName(StreamReader dataIn, Node nodeToAdd)
+
+    static char[] ReadInLastName(StreamReader dataIn, char[] lastName)
     {
         int i = 0;
         while (!dataIn.EndOfStream)
@@ -212,18 +245,18 @@ class Program
             }
             else
             {
-                Array.Resize(ref nodeToAdd.lastName, i + 1);
-                nodeToAdd.lastName[i] = input;
+                Array.Resize(ref lastName, i + 1);
+                lastName[i] = input;
             }
 
             i++;
         }
-
+        return lastName;
     }
 
-    static void ReadInId(StreamReader dataIn, Node nodeToAdd)
+    static int ReadInId(StreamReader dataIn, char[] idCharacters)
     {
-        char[] idCharacters = new char[3];
+        int id = 0; //the id value to return and add to the node
 
         int i = 0;
         while (!dataIn.EndOfStream)
@@ -257,12 +290,12 @@ class Program
         int multiplicant = 1;
         for (int j = idCharacters.Length - 1; j > -1; j--) //go until j = 0 if its negative 1 drop out
         {
-            nodeToAdd.id = nodeToAdd.id + (idCharacters[j] - 48) * multiplicant; //ascii values start at 48 = 0, so take away 48 to change to normal numbers
+            id = id + (idCharacters[j] - 48) * multiplicant; //ascii values start at 48 = 0, so take away 48 to change to normal numbers
 
             multiplicant = multiplicant * 10; // multiplicant is use to to times the digits by ie the first digit at the highest index time by 1 the next 10 and so forth...
         }
 
-
+        return id;
     }
 
 
@@ -273,6 +306,10 @@ class Program
 
         PrintList(recordStore);
 
+
+
+
+        Console.ReadKey();
 
     }
 
