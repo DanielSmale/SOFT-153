@@ -189,6 +189,7 @@ class Program
 
             i++;
 
+            InsertBeginning(list, nodeToAdd);
         }
 
         dataIn.Close();
@@ -197,8 +198,6 @@ class Program
     }
     static void ReadInLastName(StreamReader dataIn, Node nodeToAdd)
     {
-        List list = new List();
-
         int i = 0;
         while (!dataIn.EndOfStream)
         {
@@ -224,11 +223,9 @@ class Program
 
     static void ReadInId(StreamReader dataIn, Node nodeToAdd)
     {
-        List list = new List();
         char[] idCharacters = new char[3];
+
         int i = 0;
-
-
         while (!dataIn.EndOfStream)
         {
             char input = Convert.ToChar(dataIn.Read());
@@ -240,24 +237,31 @@ class Program
                 break;
 
             }
+            else if (input == '\r' || input == '\n') // if the input is null or carriage return, we are at the end of the line move on
+            {
+                break;
+            }
             else
             {
                 Array.Resize(ref idCharacters, i + 1);
-                idCharacters[i] = input;  //**** currently reads too far into the line might need to break if input is carrage return or null??? not sure yet
-
+                idCharacters[i] = input;
             }
 
 
-        
+
 
 
             i++;
         }
 
-        for (int j = 0; j < 3; j++)  // loop through and add to our nodes id variable
+        int multiplicant = 1;
+        for (int j = idCharacters.Length - 1; j > -1; j--) //go until j = 0 if its negative 1 drop out
         {
-            nodeToAdd.id = idCharacters[j] * j + 1;
+            nodeToAdd.id = nodeToAdd.id + (idCharacters[j] - 48) * multiplicant; //ascii values start at 48 = 0, so take away 48 to change to normal numbers
+
+            multiplicant = multiplicant * 10; // multiplicant is use to to times the digits by ie the first digit at the highest index time by 1 the next 10 and so forth...
         }
+
 
     }
 
