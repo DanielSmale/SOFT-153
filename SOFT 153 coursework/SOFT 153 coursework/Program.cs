@@ -150,7 +150,7 @@ class Program
 
     static void AppendLists(List listA, List listB)
     {
-        listB.listHead.prev = Last(listA);
+        listB.listHead.prev = Last(listA); 
         Last(listA).next = listB.listHead;
     }
 

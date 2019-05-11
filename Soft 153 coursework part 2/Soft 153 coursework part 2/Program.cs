@@ -6,7 +6,7 @@ class Node
 {
     public char[] firstName;
     public char[] lastName;
-    public int id;
+    public int? id;
     public Node next;
     public Node prev;
 }
@@ -188,43 +188,51 @@ class Program
         }
     }
 
-    static List ReadInData()
+    static List ReadInNodeData()
     {
-        StreamReader dataIn = new StreamReader("records.txt");
         List list = new List();
+        StreamReader dataIn = new StreamReader("records.txt");
+
         char[] firstName = new char[1];
         char[] lastName = new char[1];
         char[] idCharacters = new char[1];
 
-        Node nodeToAdd;
+        Node nodeToAdd = new Node(); 
 
         //Read each line into a character array. Read the id as a char[] and convert to int times digits by 10, 100 , 1000 etc based on poistion
         int i = 0;
 
-        while (!dataIn.EndOfStream)
+        while (!dataIn.EndOfStream) // while theres data left 
         {
-            char InputData = Convert.ToChar(dataIn.Read());
-            nodeToAdd = new Node();
+            
+            char input = Convert.ToChar(dataIn.Read());
+            nodeToAdd.id = null;
+            nodeToAdd.firstName = null;
+            nodeToAdd.lastName = null;
 
-            if (InputData == ',' || InputData == ' ') // reading in first name
-            {
-                dataIn.Read(); // to skip the spaces in the file
-                nodeToAdd.lastName = ReadInLastName(dataIn, lastName);
-                nodeToAdd.id = ReadInId(dataIn, idCharacters);
-                break;
-            }
-            else
-            {
-                Array.Resize(ref nodeToAdd.firstName, i + 1);
-                nodeToAdd.firstName[i] = InputData;
-            }
 
+          
+                if (input == ',' || input == ' ') // reading in first name
+                {
+                    dataIn.Read(); // to skip the spaces in the file
+                    nodeToAdd.lastName = ReadInLastName(dataIn, lastName);  // loook here for problems ******* maybe store values separately and add them later?????????????
+                    nodeToAdd.id = ReadInId(dataIn, idCharacters);
+                    break;
+                }
+                else
+                {
+                    Array.Resize(ref nodeToAdd.firstName, i + 1);
+                    nodeToAdd.firstName[i] = input;
+                }
+            
+
+
+            InsertBeginning(list, nodeToAdd);
 
             i++;
-            InsertBeginning(list, nodeToAdd);
         }
-
         dataIn.Close();
+
 
         return list;
     }
@@ -302,9 +310,15 @@ class Program
 
     static void Main(string[] args)
     {
-        List recordStore = ReadInData();
+        List list = new List();
+        Node newNode = new Node();
+        int lengthOfFile = 6; // Number of lines in file
 
-        PrintList(recordStore);
+        list = ReadInNodeData();
+
+
+
+        PrintList(list);
 
 
 
