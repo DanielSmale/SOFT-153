@@ -6,7 +6,7 @@ class Node
 {
     public char[] firstName;
     public char[] lastName;
-    public int? id;
+    public int id;
     public Node next;
     public Node prev;
 }
@@ -188,7 +188,7 @@ class Program
         }
     }
 
-    static List ReadInNodeData()
+    static List ReadInData()
     {
         List list = new List();
         StreamReader dataIn = new StreamReader("records.txt");
@@ -196,41 +196,97 @@ class Program
         char[] firstName = new char[1];
         char[] lastName = new char[1];
         char[] idCharacters = new char[1];
+        int id = 0;
 
-        Node nodeToAdd = new Node(); 
+
+        Node nodeToAdd;
+
 
         //Read each line into a character array. Read the id as a char[] and convert to int times digits by 10, 100 , 1000 etc based on poistion
         int i = 0;
-
+        char input = 'a'; // just initialise input to a value it will be replace anyway
         while (!dataIn.EndOfStream) // while theres data left 
         {
-            
-            char input = Convert.ToChar(dataIn.Read());
-            nodeToAdd.id = null;
-            nodeToAdd.firstName = null;
-            nodeToAdd.lastName = null;
+            nodeToAdd = new Node();
 
+            i = 0;
+            while (input != ',')
+            {
+                input = Convert.ToChar(dataIn.Read());
 
-          
-                if (input == ',' || input == ' ') // reading in first name
+                if (input == ',' || input == ' ')
                 {
-                    dataIn.Read(); // to skip the spaces in the file
-                    nodeToAdd.lastName = ReadInLastName(dataIn, lastName);  // loook here for problems ******* maybe store values separately and add them later?????????????
-                    nodeToAdd.id = ReadInId(dataIn, idCharacters);
-                    break;
+
                 }
                 else
                 {
-                    Array.Resize(ref nodeToAdd.firstName, i + 1);
-                    nodeToAdd.firstName[i] = input;
+                    Array.Resize(ref firstName, i + 1);
+                    firstName[i] = input;
                 }
-            
+                i++;
+            }
+            input = Convert.ToChar(dataIn.Read());  // This skips the comma in the file
+
+
+            i = 0;
+            while (input != ',')
+            {
+                input = Convert.ToChar(dataIn.Read());
+
+                if (input == ',' || input == ' ')
+                {
+
+                }
+                else
+                {
+                    Array.Resize(ref lastName, i + 1);
+                    lastName[i] = input;
+                }
+
+                i++;
+            }
+            input = Convert.ToChar(dataIn.Read());  // This skips the comma in the file
+
+
+
+            i = 0;
+            while (input != '\n')
+            {
+                input = Convert.ToChar(dataIn.Read());
+
+                if (input == '\r' || input == '\n')
+                {
+
+                }
+                else
+                {
+                    Array.Resize(ref idCharacters, i + 1);
+                    idCharacters[i] = input;
+                }
+                i++;
+
+            }
+
+            int multiplicant = 1;
+            id = 0;
+            for (int j = idCharacters.Length - 1; j > -1; j--) //go until j = 0 if its negative 1 drop out
+            {
+                id = id + (idCharacters[j] - 48) * multiplicant; //ascii values start at 48 = 0, so take away 48 to change to normal numbers
+
+                multiplicant = multiplicant * 10; // multiplicant is use to to times the digits by ie the first digit at the highest index time by 1 the next 10 and so forth...
+            }
+
+
+            nodeToAdd.firstName = firstName;
+            nodeToAdd.lastName = lastName;
+            nodeToAdd.id = id;
 
 
             InsertBeginning(list, nodeToAdd);
 
-            i++;
+
         }
+
         dataIn.Close();
 
 
@@ -239,11 +295,12 @@ class Program
 
     static char[] ReadInLastName(StreamReader dataIn, char[] lastName)
     {
-        int i = 0;
-        while (!dataIn.EndOfStream)
-        {
-            char input = Convert.ToChar(dataIn.Read());
+        char input = 'a';
 
+        int i = 0;
+        while (input != ',')
+        {
+            input = Convert.ToChar(dataIn.Read());
 
             if (input == ',' || input == ' ') //reading in last name
             {
@@ -264,21 +321,17 @@ class Program
 
     static int ReadInId(StreamReader dataIn, char[] idCharacters)
     {
-        int id = 0; //the id value to return and add to the node
+        int id = 0;//the id value to return and add to the node
+        char input = 'a';
+
 
         int i = 0;
-        while (!dataIn.EndOfStream)
+        while (input != ',')
         {
-            char input = Convert.ToChar(dataIn.Read());
+            input = Convert.ToChar(dataIn.Read());
 
 
-            if (input == ',' || input == ' ') //reading in id
-            {
-                dataIn.Read(); // to skip the space in the file
-                break;
-
-            }
-            else if (input == '\r' || input == '\n') // if the input is null or carriage return, we are at the end of the line move on
+            if (input == '\r') // if the input carriage return (or \r), we are at the end of the line move on
             {
                 break;
             }
@@ -289,11 +342,9 @@ class Program
             }
 
 
-
-
-
             i++;
         }
+
 
         int multiplicant = 1;
         for (int j = idCharacters.Length - 1; j > -1; j--) //go until j = 0 if its negative 1 drop out
@@ -312,9 +363,8 @@ class Program
     {
         List list = new List();
         Node newNode = new Node();
-        int lengthOfFile = 6; // Number of lines in file
 
-        list = ReadInNodeData();
+        list = ReadInData();
 
 
 
