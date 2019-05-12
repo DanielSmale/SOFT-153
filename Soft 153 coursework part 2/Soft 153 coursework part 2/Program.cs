@@ -105,7 +105,19 @@ class Program
         Node traversalNode = list.listHead;
         while (traversalNode != null)
         {
-            Console.Write(traversalNode.id);
+            Console.Write(traversalNode.id + " ");
+            for (int i = 0; i < traversalNode.firstName.Length; i++)
+            {
+                Console.Write(traversalNode.firstName[i]);
+            }
+            Console.Write(" ");
+
+            for (int i = 0; i < traversalNode.lastName.Length; i++)
+            {
+                Console.Write(traversalNode.lastName[i]);
+            }
+            Console.Write(" ");
+
             Console.Write(" <-> ");
             traversalNode = traversalNode.next;
         }
@@ -169,22 +181,73 @@ class Program
     {
         Node nodeI = listToSort.listHead;
         Node nodeJ = nodeI;
-        while (nodeI != null)
+        int selection = 0; // The users selection of what to sort
+
+
+        Console.WriteLine("What do you want to sort by: ");
+        Console.WriteLine("1: first name");
+        Console.WriteLine("2: last name");
+        Console.WriteLine("or 3: id");
+        selection = Convert.ToInt32(Console.ReadLine());
+
+        if (selection == 1) //Sorting first name
         {
-
-            nodeJ = nodeI.prev;
-
-            while (nodeJ != null)
+            while (nodeI != null)
             {
+                nodeJ = nodeI.prev;
 
-                if (nodeJ.id > nodeI.id) // otherwise do this
+                while (nodeJ != null)
                 {
-                    SwapNodes(listToSort, nodeJ, nodeI);
-                }
-                nodeJ = nodeJ.prev;
 
+                    if (nodeJ.firstName[0] > nodeI.firstName[0]) // If the first character of the first name is bigger (in ascii) its further in the alphabet swap it
+                    {
+                        SwapNodes(listToSort, nodeJ, nodeI);
+                    }
+                    nodeJ = nodeJ.prev;
+
+                }
+                nodeI = nodeI.next;
             }
-            nodeI = nodeI.next;
+        }
+
+        if (selection == 2) //Sorting last name
+        {
+            while (nodeI != null)
+            {
+                nodeJ = nodeI.prev;
+
+                while (nodeJ != null)
+                {
+
+                    if (nodeJ.lastName[0] > nodeI.lastName[0]) // If the first character of the last name is bigger (in ascii) its further in the alphabet swap it
+                    {
+                        SwapNodes(listToSort, nodeJ, nodeI);
+                    }
+                    nodeJ = nodeJ.prev;
+
+                }
+                nodeI = nodeI.next;
+            }
+        }
+
+        if (selection == 3) // Sorting ID
+        {
+            while (nodeI != null)
+            {
+                nodeJ = nodeI.prev;
+
+                while (nodeJ != null)
+                {
+
+                    if (nodeJ.id > nodeI.id) // If id is bigger swap it
+                    {
+                        SwapNodes(listToSort, nodeJ, nodeI);
+                    }
+                    nodeJ = nodeJ.prev;
+
+                }
+                nodeI = nodeI.next;
+            }
         }
     }
 
@@ -293,69 +356,6 @@ class Program
         return list;
     }
 
-    static char[] ReadInLastName(StreamReader dataIn, char[] lastName)
-    {
-        char input = 'a';
-
-        int i = 0;
-        while (input != ',')
-        {
-            input = Convert.ToChar(dataIn.Read());
-
-            if (input == ',' || input == ' ') //reading in last name
-            {
-                dataIn.Read(); // to skip the space in the file
-                break;
-
-            }
-            else
-            {
-                Array.Resize(ref lastName, i + 1);
-                lastName[i] = input;
-            }
-
-            i++;
-        }
-        return lastName;
-    }
-
-    static int ReadInId(StreamReader dataIn, char[] idCharacters)
-    {
-        int id = 0;//the id value to return and add to the node
-        char input = 'a';
-
-
-        int i = 0;
-        while (input != ',')
-        {
-            input = Convert.ToChar(dataIn.Read());
-
-
-            if (input == '\r') // if the input carriage return (or \r), we are at the end of the line move on
-            {
-                break;
-            }
-            else
-            {
-                Array.Resize(ref idCharacters, i + 1);
-                idCharacters[i] = input;
-            }
-
-
-            i++;
-        }
-
-
-        int multiplicant = 1;
-        for (int j = idCharacters.Length - 1; j > -1; j--) //go until j = 0 if its negative 1 drop out
-        {
-            id = id + (idCharacters[j] - 48) * multiplicant; //ascii values start at 48 = 0, so take away 48 to change to normal numbers
-
-            multiplicant = multiplicant * 10; // multiplicant is use to to times the digits by ie the first digit at the highest index time by 1 the next 10 and so forth...
-        }
-
-        return id;
-    }
 
 
 
@@ -369,8 +369,10 @@ class Program
 
 
         PrintList(list);
+        Console.WriteLine("Sort this data");
+        InsertionSort(list);
 
-
+        PrintList(list);
 
 
         Console.ReadKey();
