@@ -150,7 +150,7 @@ class Program
 
     static void AppendLists(List listA, List listB)
     {
-        listB.listHead.prev = Last(listA); 
+        listB.listHead.prev = Last(listA);
         Last(listA).next = listB.listHead;
     }
 
@@ -234,7 +234,7 @@ class Program
             nodeI = nodeI.next;
         }
     }
-       
+
     static void Main()
     { // do some testing 
 
@@ -305,57 +305,38 @@ class Program
         Console.WriteLine();
 
 
-        Console.WriteLine("Insertion Sort on random list");
-        List randList = new List();
-        Node randNode;
-
-        Random randomInt = new Random();
-
-        for (int i = 1; i < 10; i++)
-        {
-            randNode = new Node();
-            randNode.data = randomInt.Next(20);
-            InsertBeginning(randList, randNode);
-
-        }
-
-        List testList = new List();
-        Node testNode1 = new Node();
-        Node testNode2 = new Node();
-        Node testNode3 = new Node();
-        Node testNode4 = new Node();
-
-        Node testNode5 = new Node();
-        Node testNode6 = new Node();
-        Node testNode7 = new Node();
+        Console.WriteLine("Insertion Sort");
 
 
-        testNode1.data = 1;
-        testNode2.data = 7;
-        testNode3.data = 2;
-        testNode4.data = 9;
-        testNode5.data = 3; // our current erroring test case
-        testNode6.data = 8;
-        testNode7.data = 1;
-
-
-        InsertAtEnd(testList, testNode1);
-        InsertAtEnd(testList, testNode2);
-        InsertAtEnd(testList, testNode3);
-        InsertAtEnd(testList, testNode4);
-        InsertAtEnd(testList, testNode5);
-        InsertAtEnd(testList, testNode6);
-        InsertAtEnd(testList, testNode7);
-
-
-
-
-
-        PrintList(randList);
+        PrintList(list);
         Console.WriteLine("Sort");
-        InsertionSort(randList);
+        InsertionSort(list);
 
-        PrintList(randList);
+        PrintList(list);
+
+
+        Console.WriteLine("Bench marking insertion sort");
+
+
+        List testList1 = new List();
+        int j;
+        for (j = 0; j < 10; j++)
+        {
+            node = new Node();
+            node.data = j;
+            InsertBeginning(testList1, node);
+        }
+        DateTime startTime = DateTime.Now;
+
+        InsertionSort(testList1);
+
+        TimeSpan elapsed = DateTime.Now - startTime;
+
+        Console.WriteLine("iterations = " + j + "  Number of nodes = " + Length(testList1) + "\t time = " + elapsed.TotalMilliseconds + "ms");
+
+
+
+
 
         Console.WriteLine("End");
         Console.ReadKey();

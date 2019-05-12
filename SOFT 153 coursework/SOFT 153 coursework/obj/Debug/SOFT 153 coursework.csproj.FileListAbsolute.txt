@@ -12,3 +12,10 @@ C:\Users\dsmale\Documents\SOFT 153 coursework\SOFT 153 coursework\obj\Debug\SOFT
 C:\Users\dsmale\Documents\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.exe.config
 C:\Users\dsmale\Documents\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.exe
 C:\Users\dsmale\Documents\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.pdb
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\obj\Debug\SOFT 153 coursework.csprojAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\obj\Debug\SOFT 153 coursework.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\obj\Debug\SOFT 153 coursework.exe
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\obj\Debug\SOFT 153 coursework.pdb
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.exe.config
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.exe
+C:\Users\Student\Documents\GitHub\SOFT-153\SOFT 153 coursework\SOFT 153 coursework\bin\Debug\SOFT 153 coursework.pdb
