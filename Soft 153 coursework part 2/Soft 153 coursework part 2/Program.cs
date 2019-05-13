@@ -36,68 +36,8 @@ class Program
         }
     }
 
-    static void InsertAtEnd(List list, Node newNode)
-    {
-        Node traversalNode = list.listHead;
-        Node lastNode = Last(list);
-        if (list == null || list.listHead == null)
-        {
-            InsertBeginning(list, newNode);
-        }
-        else
-        {
-            lastNode = Last(list);
-            lastNode.next = newNode;
-            newNode.next = null;
-            newNode.prev = lastNode; //the new node points to the old last node
-        }
-    }
+ 
 
-    static Node RemoveBeginning(List list)
-    {
-        Node returnNode = list.listHead;
-        list.listHead = list.listHead.next;
-        return returnNode;
-    }
-
-    static void InsertAfter(Node node, Node newNode)
-    {
-        if (node == null || newNode == null)
-        {
-            Console.WriteLine("One of the nodes were null");
-        }
-        newNode.next = node.next;
-        node.next = newNode; // our new node is now next to the first one
-        newNode.prev = node;
-        newNode.next.prev = newNode; // Make the next our next node along point to our new node, not its old neighbour. (otherwise wonky link)
-    }
-
-    static void RemoveAfter(Node node) // the node passed in is the first one
-    {
-        if (node == null)
-        {
-            Console.WriteLine("Node was null");
-        }
-        node.next = node.next.next;
-    }
-
-    static void RemoveNode(List list, Node nodeToRemove)
-    {
-        Node traversalNode = list.listHead;
-        for (int i = 0; i < Length(list); i++)
-        {
-            if (nodeToRemove.next == null) // if we're at the last node
-            {
-                nodeToRemove.prev.next = null; //Update the previous node to be the new end of the list
-            }
-            else if (nodeToRemove == traversalNode) //otherwise
-            {
-                nodeToRemove.next.prev = nodeToRemove.next.prev.prev;
-                nodeToRemove.prev.next = nodeToRemove.prev.next.next;
-            }
-            traversalNode = traversalNode.next;
-        }
-    }
 
 
     static void PrintList(List list)
@@ -122,28 +62,6 @@ class Program
             traversalNode = traversalNode.next;
         }
         System.Console.WriteLine("");
-    }
-
-    static int Length(List list)
-    {
-        int i = 0;
-        Node traversalNode = list.listHead;
-        while (traversalNode != null)
-        {
-            i++;
-            traversalNode = traversalNode.next;
-        }
-        return i;
-    }
-
-    static Node Last(List list)
-    {
-        Node traversalNode = list.listHead;
-        while (traversalNode.next != null)
-        {
-            traversalNode = traversalNode.next;
-        }
-        return traversalNode;
     }
 
     static void SwapNodes(List list, Node nodeA, Node nodeB)
