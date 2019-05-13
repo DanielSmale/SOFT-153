@@ -318,21 +318,28 @@ class Program
         Console.WriteLine("Bench marking insertion sort");
 
 
-        List testList1 = new List();
-        int j;
-        for (j = 0; j < 10; j++)
+        List testList = new List();
+        int N;
+        Random r = new Random();
+        for (int j = 0; j < 6; j++)
         {
-            node = new Node();
-            node.data = j;
-            InsertBeginning(testList1, node);
+            N = (int)Math.Pow(10, j);
+
+            for (int i = 0; i < N; i++)
+            {
+                node = new Node();
+                node.data = r.Next();
+                InsertBeginning(testList, node);
+            }
+
+            DateTime startTime = DateTime.Now;
+
+            InsertionSort(testList);
+
+            TimeSpan elapsed = DateTime.Now - startTime;
+
+            Console.WriteLine("j = " + j + "  N = " + N + "\t time = " + elapsed.TotalMilliseconds + " ms");
         }
-        DateTime startTime = DateTime.Now;
-
-        InsertionSort(testList1);
-
-        TimeSpan elapsed = DateTime.Now - startTime;
-
-        Console.WriteLine("iterations = " + j + "  Number of nodes = " + Length(testList1) + "\t time = " + elapsed.TotalMilliseconds + "ms");
 
 
 
